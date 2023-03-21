@@ -1,0 +1,477 @@
+#include<iostream>
+#include<windows.h>
+#include<mysql.h>
+#include<sstream>
+using namespace std;
+class library
+{
+	private:
+		int admin_id;
+		int user_id;
+		string aname;
+		string uname;
+		int u_ph;
+		int age;
+		string gender;
+		string address;
+
+	public:
+		void admin();
+		void user();
+		void mainmenu();
+		void issue();
+		void ret();
+		void add();
+		void issue_r();
+		void return_r();
+		void b_add();
+		void b_show();
+        void show_book();
+};
+
+void library::mainmenu()
+{
+	int choice;
+	string email;
+	string pword;
+	cout<<"\n"<<"\n"<<"\n"<<"\n"<<"\n"<<"\n";
+	cout<<"\t\t\t\t\t     ************************************************************************************        \t\t\t";
+	cout<<"\n"<<"\n";
+	cout<<"\t\t\t\t\t\t\t\t\t      LIBRARY MAIN MENU        \t\t\t\t\t\t\t";
+	cout<<"\n"<<"\n";
+	cout<<"\t\t\t\t\t\t\t    ------------------------------------------------------    \t\t\t\t\t\t\t\t";
+	cout<<"\n";
+	cout<<"\t\t\t\t\t\t\t\t\t      Enter Your Choice     \t\t\t\t\t\t\t\t\t\t";
+	cout<<"\n"<<"\n"<<"\n";
+	cout<<"\t\t\t\t\t\t\t\t\t      1)  ADMIN       \t\t\t\t\t\t\t\t\t";
+	cout<<"\n"<<"\n";
+	cout<<"\t\t\t\t\t\t\t\t\t      2)  USER       \t\t\t\t\t\t\t\t\t";
+	cout<<"\n"<<"\n";
+	cout<<"\t\t\t\t\t\t\t\t\t      3)  EXIT       \t\t\t\t\t\t\t\t\t";
+	cout<<"\n"<<"\n"<<"\n";
+	cout<<"\t\t\t\t\t     ************************************************************************************        \t\t\t"<<endl;
+	cout<<"\n";
+	cout<<"\t\t\t\t\t\t                             =>";
+	cin>>choice;
+	switch(choice)
+	{
+		case 1:
+			cout<<"\n"<<"\n"<<"\n"<<"\n"<<"\n"<<"\n";
+			cout<<"\t\t\t\t\t     ************************************************************************************        \t\t\t";
+			cout<<"\n"<<"\n";
+			cout<<"\t\t\t\t\t\t\t\t\t      Enter Admin E-mail Id     \t\t\t\t\t\t\t\t\t\t";
+			cout<<"\n";
+			cout<<"\t\t\t\t\t\t                             =>";
+			cin>>email;
+			cout<<"\n"<<"\n";
+			cout<<"\t\t\t\t\t\t\t\t\t      Enter Admin Password     \t\t\t\t\t\t\t\t\t\t";
+			cout<<"\n";
+			cout<<"\t\t\t\t\t\t                             =>";
+			cin>>pword;
+			if(email=="pranjal12@gmail.com" && pword=="ps")
+			{
+			    cout<<"\n"<<"\n";
+			    cout<<"\t\t\t\t\t\t\t\t\t      ->Logged In     \t\t\t\t\t\t\t\t\t\t";
+				admin();
+			}
+			else
+			{
+				cout<<"\n"<<"\n";
+				cout<<"\t\t\t\t\t\t\t\t\t      -Invalid Email or Password     \t\t\t\t\t\t\t\t\t\t";
+				mainmenu();
+			}
+			break;
+		case 2:
+			user();
+			break;
+		case 3:
+			exit(0);
+			break;
+		default:
+			cout<<"\t\t\t\t\t\t\t\t\t      -INVALID CHOICE       \t\t\t\t\t\t\t\t\t\t";
+			break;
+	}
+}
+
+void library::admin()
+{
+	int choice;
+	cout<<"\n"<<"\n"<<"\n"<<"\n"<<"\n"<<"\n";
+	cout<<"\t\t\t\t\t     ************************************************************************************        \t\t\t";
+	cout<<"\n"<<"\n";
+	cout<<"\t\t\t\t\t\t\t\t\t      Enter Your Option     \t\t\t\t\t\t\t\t\t\t";
+	cout<<"\n"<<"\n"<<"\n";
+	cout<<"\t\t\t\t\t\t\t\t\t      1)  ADD BOOK       \t\t\t\t\t\t\t\t\t";
+	cout<<"\n"<<"\n";
+	cout<<"\t\t\t\t\t\t\t\t\t      2)  ISSUE RECORD       \t\t\t\t\t\t\t\t\t";
+	cout<<"\n"<<"\n";
+	cout<<"\t\t\t\t\t\t\t\t\t      3)  RETURN RECORD       \t\t\t\t\t\t\t\t\t";
+	cout<<"\n"<<"\n";
+	cout<<"\t\t\t\t\t\t\t\t\t      4)  BOOK LIST       \t\t\t\t\t\t\t\t\t";
+	cout<<"\n"<<"\n";
+	cout<<"\t\t\t\t\t\t\t\t\t      5)  EXIT       \t\t\t\t\t\t\t\t\t";
+	cout<<"\n"<<"\n"<<"\n";
+	cout<<"\t\t\t\t\t     ************************************************************************************        \t\t\t"<<endl;
+	cout<<"\n";
+	cout<<"\t\t\t\t\t\t                             =>";
+	cin>>choice;
+	switch(choice)
+	{
+		case 1:
+			b_add();
+			break;
+		case 2:
+			issue_r();
+			break;
+        case 3:
+			return_r();
+			break;
+		case 4:
+			b_show();
+			break;
+        case 5:
+			exit(0);
+			break;
+		default:
+			cout<<"\t\t\t\t\t\t\t\t\t      -INVALID CHOICE       \t\t\t\t\t\t\t\t\t\t";
+			break;
+	}
+
+}
+
+void library::user()
+{
+	string email;
+	string pword;
+	int choice;
+	cout<<"\n"<<"\n"<<"\n"<<"\n"<<"\n"<<"\n";
+	cout<<"\t\t\t\t\t     ************************************************************************************        \t\t\t";
+	cout<<"\n"<<"\n";
+	cout<<"\t\t\t\t\t\t\t\t\t      Enter User Choice     \t\t\t\t\t\t\t\t\t\t";
+	cout<<"\n"<<"\n"<<"\n";
+	cout<<"\t\t\t\t\t\t\t\t\t      1)  ISSUE       \t\t\t\t\t\t\t\t\t";
+	cout<<"\n"<<"\n";
+	cout<<"\t\t\t\t\t\t\t\t\t      2)  RETURN       \t\t\t\t\t\t\t\t\t";
+	cout<<"\n"<<"\n";
+	cout<<"\t\t\t\t\t\t\t\t\t      3)  AVAILABLE BOOKS       \t\t\t\t\t\t\t";
+	cout<<"\n"<<"\n";
+	cout<<"\t\t\t\t\t\t\t\t\t      4)  EXIT       \t\t\t\t\t\t\t\t\t";
+	cout<<"\n"<<"\n"<<"\n";
+	cout<<"\t\t\t\t\t     ************************************************************************************        \t\t\t"<<endl;
+	cout<<"\n";
+	cout<<"\t\t\t\t\t\t                             =>";
+	cin>>choice;
+	switch(choice)
+	{
+		case 1:
+		    issue();
+			break;
+		case 2:
+		    ret();
+			break;
+		case 3:
+			show_book();
+			break;
+        case 4:
+			exit(0);
+			break;
+		default:
+			cout<<"\t\t\t\t\t\t\t\t\t      -INVALID CHOICE       \t\t\t\t\t\t\t\t\t\t";
+			break;
+	}
+}
+
+void library::ret()
+{
+	string a,b,d;
+    int c,x,e;
+    MYSQL* conn;
+    conn =mysql_init(0);
+    conn = mysql_real_connect(conn, "localhost", "admin", "admin", "library", 0, NULL, 0);
+    if(conn){
+
+
+    cout<<"\n"<<"\n"<<"\n"<<"\n"<<"\n"<<"\n";
+    cout<<"\t\t\t\t\t     ************************************************************************************        \t\t\t";
+    cout<<"\n"<<"\n";
+    cout<<"\t\t\t\t\t\t\t\t\t      Enter book id     \t\t\t\t\t\t\t\t\t\t";
+    cout<<"\n";
+    cout<<"\t\t\t\t\t\t                             =>";
+    cin>>c;
+    cout<<"\n"<<"\n";
+    getline(cin,a);
+    cout<<"\t\t\t\t\t\t\t\t\t      Enter name     \t\t\t\t\t\t\t\t\t\t";
+    cout<<"\n";
+    cout<<"\t\t\t\t\t\t                             =>";
+    getline(cin,b);
+    cout<<"\n"<<"\n";
+    cout<<"\t\t\t\t\t\t\t\t\t      Enter Course Name     \t\t\t\t\t\t\t\t\t\t";
+    cout<<"\n";
+    cout<<"\t\t\t\t\t\t                             =>";
+    cin>>d;
+    cout<<"\n"<<"\n";
+    cout<<"\t\t\t\t\t\t\t\t\t      Enter student id      \t\t\t\t\t\t\t\t\t\t";
+    cout<<"\n";
+    cout<<"\t\t\t\t\t\t                             =>";
+    cin>>x;
+    cout<<"\n"<<"\n";
+
+
+
+    int qstate=0;
+    stringstream ss;
+    ss<<"INSERT INTO returnrecord (name,bookid,studentid,course) VALUES ('"<<b<<"','"<<c<<"','"<<x<<"','"<<d<<"')";
+    string query =ss.str();
+    const char *q=query.c_str();
+    qstate=mysql_query(conn,q);
+    if(qstate == 0){
+        cout<<"\t\t\t\t\t\t\t\t\t      ->Book Returned     \t\t\t\t\t\t\t\t\t\t";
+
+    }else{
+        cout<<"Failed";
+    }
+    }
+    else{
+        cout<<"not";
+    }
+    user();
+
+}
+
+void library::issue()
+{
+	string a,b,d;
+    int c,x,e;
+    MYSQL* conn;
+    conn =mysql_init(0);
+    conn = mysql_real_connect(conn, "localhost", "admin", "admin", "library", 0, NULL, 0);
+    if(conn){
+
+
+    cout<<"\n"<<"\n"<<"\n"<<"\n"<<"\n"<<"\n";
+    cout<<"\t\t\t\t\t     ************************************************************************************        \t\t\t";
+    cout<<"\n"<<"\n";
+    cout<<"\t\t\t\t\t\t\t\t\t      Enter book id     \t\t\t\t\t\t\t\t\t\t";
+    cout<<"\n";
+    cout<<"\t\t\t\t\t\t                             =>";
+    cin>>c;
+    cout<<"\n"<<"\n";
+    getline(cin,a);
+    cout<<"\t\t\t\t\t\t\t\t\t      Enter name     \t\t\t\t\t\t\t\t\t\t";
+    cout<<"\n";
+    cout<<"\t\t\t\t\t\t                             =>";
+    getline(cin,b);
+    cout<<"\n"<<"\n";
+    cout<<"\t\t\t\t\t\t\t\t\t      Enter Course Name     \t\t\t\t\t\t\t\t\t\t";
+    cout<<"\n";
+    cout<<"\t\t\t\t\t\t                             =>";
+    cin>>d;
+    cout<<"\n"<<"\n";
+    cout<<"\t\t\t\t\t\t\t\t\t      Enter student id      \t\t\t\t\t\t\t\t\t\t";
+    cout<<"\n";
+    cout<<"\t\t\t\t\t\t                             =>";
+    cin>>x;
+    cout<<"\n"<<"\n";
+
+
+
+    int qstate=0;
+    stringstream ss;
+    ss<<"INSERT INTO issue_record (name,bookid,studentid,course) VALUES ('"<<b<<"','"<<c<<"','"<<x<<"','"<<d<<"')";
+    string query =ss.str();
+    const char *q=query.c_str();
+    qstate=mysql_query(conn,q);
+    if(qstate == 0){
+        cout<<"\t\t\t\t\t\t\t\t\t      ->Book Issued     \t\t\t\t\t\t\t\t\t\t";
+
+    }else{
+        cout<<"Failed";
+    }
+    }
+    else{
+        cout<<"not";
+    }
+    user();
+
+}
+
+
+void library::b_add()
+{
+    string a,b,d;
+    int c,x,e;
+    MYSQL* conn;
+    conn =mysql_init(0);
+    conn = mysql_real_connect(conn, "localhost", "admin", "admin", "library", 0, NULL, 0);
+    if(conn){
+
+
+    cout<<"\n"<<"\n"<<"\n"<<"\n"<<"\n"<<"\n";
+    cout<<"\t\t\t\t\t     ************************************************************************************        \t\t\t";
+    cout<<"\n"<<"\n";
+    cout<<"\t\t\t\t\t\t\t\t\t      Enter book id     \t\t\t\t\t\t\t\t\t\t";
+    cout<<"\n";
+    cout<<"\t\t\t\t\t\t                             =>";
+    cin>>c;
+    cout<<"\n"<<"\n";
+    getline(cin,a);
+    cout<<"\t\t\t\t\t\t\t\t\t      Enter book name     \t\t\t\t\t\t\t\t\t\t";
+    cout<<"\n";
+    cout<<"\t\t\t\t\t\t                             =>";
+    getline(cin,b);
+    cout<<"\n"<<"\n";
+    cout<<"\t\t\t\t\t\t\t\t\t      Enter Author Name     \t\t\t\t\t\t\t\t\t\t";
+    cout<<"\n";
+    cout<<"\t\t\t\t\t\t                             =>";
+    cin>>d;
+    cout<<"\n"<<"\n";
+    cout<<"\t\t\t\t\t\t\t\t\t      Enter book price      \t\t\t\t\t\t\t\t\t\t";
+    cout<<"\n";
+    cout<<"\t\t\t\t\t\t                             =>";
+    cin>>x;
+    cout<<"\n"<<"\n";
+
+
+
+    int qstate=0;
+    stringstream ss;
+    ss<<"INSERT INTO bookadd (book_name,book_id,price,author_name) VALUES ('"<<b<<"','"<<c<<"','"<<x<<"','"<<d<<"')";
+    string query =ss.str();
+    const char *q=query.c_str();
+    qstate=mysql_query(conn,q);
+    if(qstate == 0){
+        cout<<"\t\t\t\t\t\t\t\t\t      ->Book Added     \t\t\t\t\t\t\t\t\t\t";
+
+    }else{
+        cout<<"\n\t\t\t\t     -------------------------------------------------------------------------------------        \t\t\t";
+        cout<<"\n\t\t\t\t\t                                 OPERATION FAILED               \t\t\t";
+        cout<<"\n\t\t\t\t     -------------------------------------------------------------------------------------        \t\t\t";
+    }
+    }
+    else{
+        cout<<"not";
+    }
+    admin();
+}
+
+void library::b_show()
+{
+    MYSQL* conn;
+    MYSQL_ROW row;
+    MYSQL_RES* res;
+    conn =mysql_init(0);
+    conn = mysql_real_connect(conn, "localhost", "admin", "admin", "library", 0, NULL, 0);
+    if(conn){
+        int qstate=mysql_query(conn,"SELECT book_name,book_id,author_name,price FROM bookadd");
+        if(!qstate){
+            res=mysql_store_result(conn);
+            cout<<"\n\t\t\t\t\t\t\t\t\t                            \t\t\t\t\t\t\t\t\t\t";
+            cout<<"\n\t\t\t\t\t     -------------------------------------------------------------------------------------        \t\t\t";
+            cout<<"\n\t\t\t\t\t\t BOOK NAME                BOOK ID           AUTHOR              PRICE               \t\t\t";
+            cout<<"\n\t\t\t\t\t     -------------------------------------------------------------------------------------        \t\t\t";
+            while(row=mysql_fetch_row(res)){
+                cout<<"\n\t\t\t\t\t\t "<<row[0]<<"\t          "<<row[1]<<"\t            "<<row[2]<<"\t        "<<row[3];
+            }
+
+        }
+    }
+    else{
+        cout<<"not\n";
+    }
+    admin();
+}
+
+void library::return_r()
+{
+    MYSQL* conn;
+    MYSQL_ROW row;
+    MYSQL_RES* res;
+    conn =mysql_init(0);
+    conn = mysql_real_connect(conn, "localhost", "admin", "admin", "library", 0, NULL, 0);
+    if(conn){
+        int qstate=mysql_query(conn,"SELECT studentid,name,course,bookid FROM returnrecord");
+        if(!qstate){
+            res=mysql_store_result(conn);
+            cout<<"\n\t\t\t\t\t\t\t\t\t                            \t\t\t\t\t\t\t\t\t\t";
+            cout<<"\n\t\t\t\t     -------------------------------------------------------------------------------------        \t\t\t";
+            cout<<"\n\t\t\t\t\t STUDENT ID             NAME                    COURSE                   BOOK ID               \t\t\t";
+            cout<<"\n\t\t\t\t     -------------------------------------------------------------------------------------        \t\t\t";
+            while(row=mysql_fetch_row(res)){
+                cout<<"\n\t\t\t\t\t "<<row[0]<<"\t\t        "<<row[1]<<" \t\t        "<<row[2]<<" \t\t         "<<row[3];
+            }
+
+        }
+    }
+    else{
+        cout<<"\n\t\t\t\t     -------------------------------------------------------------------------------------        \t\t\t";
+        cout<<"\n\t\t\t\t\t                                 OPERATION FAILED               \t\t\t";
+        cout<<"\n\t\t\t\t     -------------------------------------------------------------------------------------        \t\t\t";
+    }
+    admin();
+}
+
+void library::issue_r()
+{
+    MYSQL* conn;
+    MYSQL_ROW row;
+    MYSQL_RES* res;
+    conn =mysql_init(0);
+    conn = mysql_real_connect(conn, "localhost", "admin", "admin", "library", 0, NULL, 0);
+    if(conn){
+        int qstate=mysql_query(conn,"SELECT studentid,name,course,bookid FROM issue_record");
+        if(!qstate){
+            res=mysql_store_result(conn);
+            cout<<"\n\t\t\t\t\t\t\t\t\t                            \t\t\t\t\t\t\t\t\t\t";
+            cout<<"\n\t\t\t\t     -------------------------------------------------------------------------------------        \t\t\t";
+            cout<<"\n\t\t\t\t\t STUDENT ID             NAME                    COURSE                   BOOK ID               \t\t\t";
+            cout<<"\n\t\t\t\t     -------------------------------------------------------------------------------------        \t\t\t";
+            while(row=mysql_fetch_row(res)){
+                cout<<"\n\t\t\t\t\t "<<row[0]<<"\t\t        "<<row[1]<<" \t\t        "<<row[2]<<" \t\t         "<<row[3];
+            }
+
+        }
+    }
+    else{
+        cout<<"\n\t\t\t\t     -------------------------------------------------------------------------------------        \t\t\t";
+        cout<<"\n\t\t\t\t\t                                 OPERATION FAILED               \t\t\t";
+        cout<<"\n\t\t\t\t     -------------------------------------------------------------------------------------        \t\t\t";
+    }
+    admin();
+    freind void library()
+}
+
+void library::show_book()
+{
+    MYSQL* conn;
+    MYSQL_ROW row;
+    MYSQL_RES* res;
+    conn =mysql_init(0);
+    conn = mysql_real_connect(conn, "localhost", "admin", "admin", "library", 0, NULL, 0);
+    if(conn){
+        int qstate=mysql_query(conn,"SELECT book_name,book_id,author_name,price FROM bookadd");
+        if(!qstate){
+            res=mysql_store_result(conn);
+            cout<<"\n\t\t\t\t\t\t\t\t\t                            \t\t\t\t\t\t\t\t\t\t";
+            cout<<"\n\t\t\t\t\t     -------------------------------------------------------------------------------------        \t\t\t";
+            cout<<"\n\t\t\t\t\t\t BOOK NAME                BOOK ID           AUTHOR              PRICE               \t\t\t";
+            cout<<"\n\t\t\t\t\t     -------------------------------------------------------------------------------------        \t\t\t";
+            while(row=mysql_fetch_row(res)){
+                cout<<"\n\t\t\t\t\t\t "<<row[0]<<"\t          "<<row[1]<<"\t            "<<row[2]<<"\t        "<<row[3];
+            }
+
+        }
+    }
+    else{
+        cout<<"\n\t\t\t\t     -------------------------------------------------------------------------------------        \t\t\t";
+        cout<<"\n\t\t\t\t\t                                 OPERATION FAILED               \t\t\t";
+        cout<<"\n\t\t\t\t     -------------------------------------------------------------------------------------        \t\t\t";
+    }
+    user();
+}
+
+int main()
+{
+	library l;
+	l.mainmenu();
+	return 0;
+}
